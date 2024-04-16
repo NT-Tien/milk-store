@@ -12,7 +12,7 @@ import { PhoneDto } from "./dto/phone.dto";
 import { PasswordDto } from "./dto/password-update-data.dto";
 import { UsernameDto } from "./dto/username-update-data.dto";
 import { CreateAccountDto } from "./dto/create-account.dto";
-import { AccountEntity, Role } from "./entities/account.entity";
+import { AccountEntity, Role } from "../../entities/account.entity";
 import { randomUUID } from "crypto";
 
 

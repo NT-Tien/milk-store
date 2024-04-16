@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { MilkStatus } from "../../../entities/milk.entity";
+import { IsDate, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Transform, Type } from "class-transformer";
 
 export class CreateMilkDto {
 
@@ -24,19 +24,22 @@ export class CreateMilkDto {
     @IsNotEmpty()
     quantity: number;
 
-    // @ApiProperty()
-    // @IsNumber()
-    // @IsNotEmpty()
-    // sold: number;
-
     @ApiProperty()
     @IsString({ each: true })
     @IsNotEmpty()
     images: string[];
 
-    // @ApiProperty()
-    // @IsString()
-    // @IsNotEmpty()
-    // status: MilkStatus;
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    categoryId: string;
+
+    @ApiProperty()
+    @IsDate()
+    @Transform(({ value }) => new Date(value))
+    @Type(() => Date)
+    @IsNotEmpty()
+    expiredAt: Date;
+    
 
 }

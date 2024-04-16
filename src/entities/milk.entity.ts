@@ -69,4 +69,11 @@ export class MilkEntity extends BaseEntity {
     @ManyToOne(() => CategoryEntity, category => category.id)
     category: string;
 
+    @Column({
+        name: "expiredAt",
+        type: "timestamp",
+        nullable: false,
+    })
+    expiredAt: Date;
+
 }

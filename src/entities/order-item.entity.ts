@@ -21,6 +21,13 @@ export class OrderItemEntity extends BaseEntity {
     milkId: string;
 
     @Column({
+        name: "name",
+        type: "varchar",
+        nullable: false,
+    })
+    name: string;
+
+    @Column({
         name: "quantity",
         type: "int",
         nullable: false,

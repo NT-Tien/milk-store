@@ -1,7 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEmail, IsNotEmpty, IsNumber, IsPhoneNumber, IsString } from "class-validator";
 import { OrderItemEntity } from "../../../entities/order-item.entity";
-import { OrderStatus } from "../../../entities/order.entity";
 
 export class CreateOrderDto {
 
@@ -26,20 +25,24 @@ export class CreateOrderDto {
     total: number;
 
     @ApiProperty()
-    ticketVoucher: any;
+    voucher: any;
 
     @ApiProperty({
-        enum: OrderStatus,
-        default: OrderStatus.PENDING,
+        type: 'array',
+        items: {
+            type: 'object',
+            properties: {
+                milkId: { type: 'string' },
+                name: { type: 'string' },
+                quantity: { type: 'number' },
+                price: { type: 'number' }
+            }
+        }
     })
-    status: OrderStatus;
-
-    @ApiProperty()
-    payment: any;
-
-    @ApiProperty()
     @IsString()
     @IsNotEmpty()
     items: OrderItemEntity[];
+
+    payment?: any;
 
 }

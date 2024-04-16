@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, HttpException, Inject, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, Inject, Param, Patch, Post, Put, UseGuards } from "@nestjs/common";
 import { MilkServiceInterface } from "./interfaces/milk-service.interface";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { CreateMilkDto } from "./dto/create-milk.dto";
 import { UpdateMilkDto } from "./dto/update-milk.dto";
-import { UpdateMilkQuantityDto } from "./dto/update-milk-quantity.dto";
+import { AdminGuard } from "../auth/guards/admin.guard";
 
 @ApiTags("milk")
+@UseGuards(AdminGuard)
 @Controller("milk")
 export class MilkController {
     constructor(
@@ -34,18 +35,6 @@ export class MilkController {
     @ApiBearerAuth()
     update(@Param('id') id: string, @Body() data: UpdateMilkDto) {
         return this.milkService.updateMilk(id, data);
-    }
-
-    @Patch('/increase/:id')
-    @ApiBearerAuth()
-    increase(@Param('id') id: string, @Body() body: UpdateMilkQuantityDto) {
-        return this.milkService.increaseMilkQuantity(id, body.quantity);
-    }
-
-    @Patch('/decrease/:id')
-    @ApiBearerAuth()
-    decrease(@Param('id') id: string, @Body() body: UpdateMilkQuantityDto) {
-        return this.milkService.decreaseMilkQuantity(id, body.quantity);
     }
 
     @Delete('/:id')

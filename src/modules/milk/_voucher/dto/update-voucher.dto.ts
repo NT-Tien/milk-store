@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNumber, IsString, ValidateIf } from "class-validator";
+import { IsBoolean, IsDate, IsNumber, IsString, ValidateIf } from "class-validator";
 import { Expose, Transform, Type } from "class-transformer";
 
 export class UpdateVoucherDto {
@@ -37,5 +37,11 @@ export class UpdateVoucherDto {
     @ValidateIf((object, value) => value !== undefined)
     @Expose()
     expiredAt: string;
+
+    @ApiProperty()
+    @IsBoolean()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    isPublic: boolean;
 
 }

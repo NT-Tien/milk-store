@@ -1,3 +1,4 @@
+import { VoucherApplyUserDto } from "../dto/voucher-apply-user.dto";
 
 export interface VoucherServiceInterface {
     // CRUD only for admin account
@@ -10,4 +11,5 @@ export interface VoucherServiceInterface {
     unDeleteVoucher(id: string): Promise<any>;
     getVoucherById(id: string): Promise<any>;
     getVouchers(): Promise<any>;
+    applyVoucherForUser(data: VoucherApplyUserDto): Promise<any>;
 }

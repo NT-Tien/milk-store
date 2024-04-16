@@ -1,6 +1,6 @@
 import { BaseEntity } from "src/common/base/entity.base";
 import { Column, Entity, ManyToOne } from "typeorm";
-import { OrderItemEntity } from "../../entities/order-item.entity";
+import { OrderItemEntity } from "./order-item.entity";
 
 @Entity({
     name: "FEEDBACK",

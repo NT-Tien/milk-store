@@ -30,6 +30,13 @@ export class VoucherEntity extends BaseEntity {
     quantity: number;
 
     @Column({
+        name: "isPublic",
+        type: "boolean",
+        default: false,
+    })
+    isPublic: boolean;
+
+    @Column({
         name: "startAt",
         type: "timestamp",
         nullable: false,

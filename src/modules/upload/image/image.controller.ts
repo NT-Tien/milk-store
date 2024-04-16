@@ -13,7 +13,7 @@ const api_key = process.env.FILE_API_KEY;
 
 @ApiTags('file')
 @Controller('file')
-export class FileController {
+export class ImageController {
 
     @ApiConsumes('multipart/form-data')
     @ApiBody({
@@ -36,7 +36,7 @@ export class FileController {
             var fileBlob = new Blob([file.buffer], { type: file.mimetype });
             var dataForm = new FormData();
             dataForm.append("file", fileBlob);
-            var response = await fetch(url + 'file/upload', {
+            var response = await fetch(url + 'image/upload', {
                 method: 'POST',
                 headers: {
                     'Api-Key': api_key

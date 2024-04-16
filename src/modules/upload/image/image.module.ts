@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
-import { FileController } from "./file.controller";
+import { ImageController } from "./image.controller";
 import { AuthModule } from "src/modules/auth/auth.module";
 
 @Module({
     imports: [
         AuthModule
     ],
-    controllers: [FileController],
+    controllers: [ImageController],
 })
-export class FileModule { }
+export class ImageModule { }

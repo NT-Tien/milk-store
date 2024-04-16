@@ -46,6 +46,13 @@ export class AccountEntity extends BaseEntity {
     password: string;
 
     @Column({
+        name: "Score",
+        type: "int",
+        default: 0,
+    })
+    score: number;
+
+    @Column({
         name: "Role",
         type: "enum",
         enum: Role,

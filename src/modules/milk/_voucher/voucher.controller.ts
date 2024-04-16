@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, HttpException, Inject, Param, Patch, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { VoucherServiceInterface } from "./interfaces/voucher-milk.interface";
 import { CreateVoucherDto } from "./dto/create-voucher.dto";
 import { UpdateVoucherDto } from "./dto/update-voucher.dto";
-import { UpdateVoucherQuantityDto } from "./dto/update-voucher-quantity.dto";
 
 @ApiTags("voucher")
 @Controller("voucher")
@@ -34,18 +33,6 @@ export class VoucherController {
     @ApiBearerAuth()
     update(@Param('id') id: string, @Body() data: UpdateVoucherDto) {
         return this.voucherService.updateVoucher(id, data);
-    }
-
-    @Patch('/increase/:id')
-    @ApiBearerAuth()
-    increase(@Param('id') id: string, @Body() body: UpdateVoucherQuantityDto) {
-        return this.voucherService.increaseVoucherQuantity(id, body.quantity);
-    }
-
-    @Patch('/decrease/:id')
-    @ApiBearerAuth()
-    decrease(@Param('id') id: string, @Body() body: UpdateVoucherQuantityDto) {
-        return this.voucherService.decreaseVoucherQuantity(id, body.quantity);
     }
 
     @Delete('/:id')
