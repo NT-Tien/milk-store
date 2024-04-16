@@ -20,14 +20,13 @@ export class ZaloPayService {
         const embed_data = {
             "preferred_payment_method": []
         };
-        const items = [{}];
         const transID = Math.floor(Math.random() * 1000000);
         const order = {
             app_id: config.app_id,
             app_trans_id: `${moment().format('YYMMDD')}_${transID}`, // translation missing: vi.docs.shared.sample_code.comments.app_trans_id
             app_user: "TIENNT",
             app_time: Date.now(), // miliseconds
-            item: [{}],
+            item: JSON.stringify([{}]),
             embed_data: JSON.stringify(embed_data),
             amount: total,
             description: `Demo Zalopay #${transID}`,
@@ -38,10 +37,12 @@ export class ZaloPayService {
         // appid|app_trans_id|appuser|amount|apptime|embeddata|item
         const mac = config.app_id + "|" + order.app_trans_id + "|" + order.app_user + "|" + order.amount + "|" + order.app_time + "|" + order.embed_data + "|" + order.item;
         order.mac = CryptoJS.HmacSHA256(mac, config.key1).toString();
+        console.log("order", order);
+        
         return await axios.post(endpoint, null, { params: order })
             .then(res => {
                 return {
-                    payemnt: res.data,
+                    payment: res.data,
                     info: order
                 };
             })

@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import * as io from 'socket.io-client';
 import * as CryptoJS from 'crypto-js';
 import * as dotenv from 'dotenv';
+import { OrderServiceInterface } from '../interfaces/order-service.interface';
+import { OrderStatus } from 'src/entities/order.entity';
 dotenv.config();
 
 const config = {
@@ -13,13 +15,15 @@ const config = {
 export class SocketService {
     private socket: any;
 
-    constructor() {
+    constructor(
+        @Inject('ORDER_SERVICE_TIENNT') private readonly orderService: OrderServiceInterface,
+    ) {
         this.socket = io.connect(config.socket_url, { reconnection: true });
         this.setupListeners();
     }
 
-    private setupListeners(): void {
-        this.socket.on('new-payment', (data: any) => {
+    private async setupListeners(): Promise<void> {
+        this.socket.on('new-payment', async (data: any) => {
             console.log('Received new payment:', data);
 
             let result = {
@@ -46,6 +50,9 @@ export class SocketService {
                     console.log("update order's status = success where app_trans_id =", dataJson["app_trans_id"]);
                     result.return_code = 1;
                     result.return_message = "success";
+                    var status = await this.orderService.updateOrderStatusWithAppTransId(dataJson["app_trans_id"], OrderStatus.PAID);
+                    console.log("status = ", status);
+                    
                 }
             } catch (ex) {
                 result.return_code = 0; // ZaloPay server sẽ callback lại (tối đa 3 lần)

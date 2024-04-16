@@ -17,7 +17,8 @@ export class OrderController {
 
     @Post()
     createOrder(@Body() order: CreateOrderDto) {
-        return this.orderQueue.add({ data: order } as Job<any>, { delay: 2000 });
+        return this.orderService.createOrder(order);
+        // return this.orderQueue.add({ data: order } as Job<any>, { delay: 2000 });
     }
 
     @Get('get-result/:orderId')

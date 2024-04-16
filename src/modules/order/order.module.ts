@@ -9,6 +9,7 @@ import { SocketService } from "./zalo-pay/zalopay.client";
 import { OrderProcessor } from "./order.process";
 import { BullModule } from "@nestjs/bull";
 import { OrderScheduleService } from "./order.schedule";
+import { VoucherEntity } from "src/entities/voucher.entity";
 
 @Module({
     imports: [

@@ -12,8 +12,6 @@ export const TYPE_ORM_CONFIG = {
     entities: [
         'dist/**/*.entity.js'
     ],
-    ssl: {
-        // get file ca.pem
-        ca: process.env.DB_SSL_CA,
-    }
+    ssl: process.env.ENV === 'local' ? false : { ca: process.env.DB_SSL_CA },
+
 }

@@ -44,8 +44,8 @@ export class VoucherService implements VoucherServiceInterface {
     unDeleteVoucher(id: string): Promise<any> {
         return this.voucherRepository.update(id, { deletedAt: null });
     }
-    getVoucherById(id: any): Promise<any> {
-        return this.voucherRepository.findOne(id);
+    getVoucherById(id: string): Promise<any> {
+        return this.voucherRepository.findOne({ where: { id } });
     }
     getVouchers(): Promise<any> {
         return this.voucherRepository.find();

@@ -29,15 +29,24 @@ export class MilkService implements MilkServiceInterface {
         throw new Error("Method not implemented.");
     }
     softDeleteMilk(id: string): Promise<any> {
-        return this.milkRepository.update(id, { deletedAt: new Date()});
+        return this.milkRepository.update(id, { deletedAt: new Date() });
     }
     unDeleteMilk(id: string): Promise<any> {
         return this.milkRepository.update(id, { deletedAt: null });
     }
     getMilkById(id: any): Promise<any> {
-        return this.milkRepository.findOne(id);
+        return this.milkRepository
+            .createQueryBuilder("MILK")
+            .leftJoinAndSelect("MILK.category", "CATEGORY")
+            .select(["MILK", "CATEGORY.id", "CATEGORY.name"])
+            .where("MILK.id = :id", { id })
+            .getOne();
     }
     getMilks(): Promise<any> {
-        return this.milkRepository.find();
+        return this.milkRepository
+            .createQueryBuilder("MILK")
+            .leftJoinAndSelect("MILK.category", "CATEGORY")
+            .select(["MILK", "CATEGORY.id", "CATEGORY.name"])
+            .getMany();
     }
 } 

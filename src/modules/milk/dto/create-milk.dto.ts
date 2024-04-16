@@ -29,10 +29,12 @@ export class CreateMilkDto {
     @IsNotEmpty()
     images: string[];
 
-    @ApiProperty()
+    @ApiProperty({
+        description: "Category ID",
+    })
     @IsString()
     @IsNotEmpty()
-    categoryId: string;
+    category: string;
 
     @ApiProperty()
     @IsDate()

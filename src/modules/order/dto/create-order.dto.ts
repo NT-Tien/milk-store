@@ -24,8 +24,13 @@ export class CreateOrderDto {
     @IsNotEmpty()
     total: number;
 
-    @ApiProperty()
-    voucher: any;
+    @ApiProperty({
+        type: 'string',
+        nullable: true,
+        default: null,
+        description: 'Voucher Code'
+    })
+    voucher: string | null;
 
     @ApiProperty({
         type: 'array',
@@ -39,7 +44,6 @@ export class CreateOrderDto {
             }
         }
     })
-    @IsString()
     @IsNotEmpty()
     items: OrderItemEntity[];
 
