@@ -27,7 +27,7 @@ export class CategoryService implements CategoryServiceInterface {
         return this.categoryRepository.update(id, { deletedAt: null });
     }
     getCategoryById(id: any): Promise<any> {
-        return this.categoryRepository.findOne(id);
+        return this.categoryRepository.findOne({where: {id}});
     }
     getCategorys(): Promise<any> {
         return this.categoryRepository.find();

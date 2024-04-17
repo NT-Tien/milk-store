@@ -7,6 +7,9 @@ export enum OrderStatus {
     PAID = 'PAID',
     CANCELED = 'CANCELED',
     EXPIRED = 'EXPIRED',
+    SHIPPING = 'SHIPPING',
+    COMPLETED = 'COMPLETED',
+    REFUND = 'REFUND',
 }   
 @Entity({
     name: "ORDER",
@@ -68,5 +71,12 @@ export class OrderEntity extends BaseEntity {
 
     @OneToMany(() => OrderItemEntity, orderItem => orderItem.orderId)
     items: OrderItemEntity[];
+
+    @Column({
+        name: "note",
+        type: "text",
+        nullable: true,
+    })
+    note: string;
 
 }

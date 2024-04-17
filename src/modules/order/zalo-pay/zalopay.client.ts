@@ -52,7 +52,6 @@ export class SocketService {
                     result.return_message = "success";
                     var status = await this.orderService.updateOrderStatusWithAppTransId(dataJson["app_trans_id"], OrderStatus.PAID);
                     console.log("status = ", status);
-                    
                 }
             } catch (ex) {
                 result.return_code = 0; // ZaloPay server sẽ callback lại (tối đa 3 lần)
