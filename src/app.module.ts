@@ -13,6 +13,7 @@ import { BullModule } from '@nestjs/bull';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ShippingModule } from './modules/shipping/shipping.module';
+import { FeedbackModule } from './modules/feedback/feedback.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ShippingModule } from './modules/shipping/shipping.module';
     MilkModule,
     OrderModule,
     ShippingModule,
+    FeedbackModule,
   ],
   providers: [
     {

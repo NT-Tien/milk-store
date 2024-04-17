@@ -1,5 +1,5 @@
 import { BaseEntity } from "src/common/base/entity.base";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity } from "typeorm";
  
 @Entity({
     name: "ORDER_ITEM",
