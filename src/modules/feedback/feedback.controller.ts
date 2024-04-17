@@ -2,7 +2,9 @@ import { Body, Controller, Get, Inject, Param, Post, Put } from "@nestjs/common"
 import { FeedbackServiceInterface } from "./interfaces/category.interface";
 import { CreateFeedbackDto } from "./dto/create-feedback.dto";
 import { UpdateFeedbackDto } from "./dto/update-feedback.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('feedback')
 @Controller('feedback')
 export class FeedbackController {
     constructor(
