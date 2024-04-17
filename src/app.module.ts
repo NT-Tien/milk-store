@@ -12,6 +12,7 @@ import { QUEUE_CONFIG } from './config/queue.config';
 import { BullModule } from '@nestjs/bull';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ScheduleModule } from '@nestjs/schedule';
+import { ShippingModule } from './modules/shipping/shipping.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     AuthModule,
     MilkModule,
     OrderModule,
+    ShippingModule,
   ],
   providers: [
     {

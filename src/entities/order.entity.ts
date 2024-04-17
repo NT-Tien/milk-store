@@ -41,6 +41,13 @@ export class OrderEntity extends BaseEntity {
     username: string;
 
     @Column({
+        name: "address",
+        type: "text",
+        nullable: false,
+    })
+    address: string;
+
+    @Column({
         name: "total",
         type: "float",
         nullable: false,
@@ -48,11 +55,11 @@ export class OrderEntity extends BaseEntity {
     total: number;
 
     @Column({
-        name: "ticketVoucher",
+        name: "voucher",
         type: 'jsonb',
         nullable: true,
     })
-    ticketVoucher: any;
+    voucher: any;
 
     @Column({
         name: "status",

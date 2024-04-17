@@ -20,6 +20,11 @@ export class CreateOrderDto {
     username: string;
 
     @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    address: string;
+
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
     total: number;
