@@ -35,6 +35,8 @@ export interface AuthServiceInterface {
     updateAccount(id: string, data: AdminUpdateAccountDataDto): Promise<any>;
     // Delete account (soft delete)
     softDeleteAccount(id: string): Promise<any>;
+    // Undo delete account
+    undoDeleteAccount(id: string): Promise<any>;
     // ! features for user
     // Change password
     changePassword(id: string, newPassword: PasswordDto): Promise<any>;

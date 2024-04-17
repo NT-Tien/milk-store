@@ -143,6 +143,9 @@ export class AuthService implements AuthServiceInterface {
         }
         return this.repositoryAccount.update(id, { deletedAt: new Date() });
     }
+    async undoDeleteAccount(id: string): Promise<any> {
+        return this.repositoryAccount.update(id, { deletedAt: null });
+    }
     // ! features for user
     async changePassword(id: string, newPassword: PasswordDto): Promise<any> {
         var salt = bcrypt.genSaltSync(10);

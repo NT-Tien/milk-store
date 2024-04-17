@@ -9,4 +9,7 @@ export interface ShippingServiceInterface {
     returnOrderShipping(id: string): Promise<any>;
     cancelOrderShipping(id: string): Promise<any>;
     calculateOrderShippingFee(data: ShippingOrderDto): Promise<any>;
+    getDistricts(): Promise<any>;
+    getWards(district_id: number): Promise<any>;
+    getPronvinces(): Promise<any>;
 }

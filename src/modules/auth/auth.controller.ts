@@ -88,6 +88,14 @@ export class AuthController {
         return await this.authService.softDeleteAccount(id);
     }
 
+    @Put('admin/undo-delete-account/:id')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(AdminGuard)
+    @ApiBearerAuth()
+    async undoDeleteAccount(@Param('id') id: string) {
+        return await this.authService.undoDeleteAccount(id);
+    }
+
     // ! features for user
 
     @Post('user/change-password')

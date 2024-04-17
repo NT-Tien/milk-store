@@ -151,5 +151,14 @@ export class ShippingService implements ShippingServiceInterface {
     calculateOrderShippingFee(data: ShippingOrderDto): Promise<any> {
         throw new Error("Method not implemented.");
     }
+    getDistricts(): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    getWards(district_id: number): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+    getPronvinces(): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
 
 }
