@@ -29,11 +29,27 @@ export class UpdateMilkDto {
     @Expose()
     quantity: number;
 
-    // @ApiProperty()
-    // @IsNumber()
-    // @ValidateIf((object, value) => value !== undefined)
-    // @Expose()
-    // sold: number;
+    @ApiProperty()
+    @IsNumber()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    sold: number;
+
+    @ApiProperty({
+        description: "Category ID",
+    })
+    @IsString()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    category: string;
+
+    @ApiProperty({
+        description: "Brand ID",
+    })
+    @IsString()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    brand: string;
 
     @ApiProperty()
     @IsString({ each: true })

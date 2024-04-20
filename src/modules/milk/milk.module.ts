@@ -14,6 +14,9 @@ import { AuthModule } from "../auth/auth.module";
 import { MilkUserController } from "./milk-user.controller";
 import { CategoryUserController } from "./_category/category-user.controller";
 import { VoucherUserController } from "./_voucher/voucher-user.controller";
+import { BrandService } from "./_brand/brand.service";
+import { BrandController } from "./_brand/brand.controller";
+import { BrandEntity } from "src/entities/brand.entity";
 
 @Module({
     imports: [
@@ -22,6 +25,7 @@ import { VoucherUserController } from "./_voucher/voucher-user.controller";
             VoucherEntity,
             VoucherApllyEntity,
             CategoryEntity,
+            BrandEntity,
         ]),
         AuthModule,
     ],
@@ -32,6 +36,7 @@ import { VoucherUserController } from "./_voucher/voucher-user.controller";
         VoucherUserController,
         CategoryController,
         CategoryUserController,
+        BrandController,
     ],
     providers: [
         {
@@ -45,6 +50,10 @@ import { VoucherUserController } from "./_voucher/voucher-user.controller";
         {
             provide: "CATEGORY_SERVICE_TIENNT",
             useClass: CategoryService
+        },
+        {
+            provide: "BRAND_SERVICE_TIENNT",
+            useClass: BrandService
         }
     ],
 })

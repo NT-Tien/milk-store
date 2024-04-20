@@ -36,6 +36,13 @@ export class CreateMilkDto {
     @IsNotEmpty()
     category: string;
 
+    @ApiProperty({
+        description: "Brand ID",
+    })
+    @IsString()
+    @IsNotEmpty()
+    brand: string;
+
     @ApiProperty()
     @IsDate()
     @Transform(({ value }) => new Date(value))

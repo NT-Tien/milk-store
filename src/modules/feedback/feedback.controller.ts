@@ -17,7 +17,7 @@ export class FeedbackController {
     }
 
     @Get('getFeedbacksByProductId/:id')
-    getFeedbackByProjectId(@Param('id') id: string) {
+    getFeedbackByProductId(@Param('id') id: string) {
         return this.feedbackService.getFeedbacksByProductId(id);
     }
 

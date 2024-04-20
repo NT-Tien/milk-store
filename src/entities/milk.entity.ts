@@ -1,6 +1,7 @@
 import { BaseEntity } from "src/common/base/entity.base";
 import { Column, Entity, ManyToOne, Unique } from "typeorm";
 import { CategoryEntity } from "./category.entity";
+import { BrandEntity } from "./brand.entity";
 
 // status for know milk are being sold or not
 export enum MilkStatus {
@@ -68,6 +69,9 @@ export class MilkEntity extends BaseEntity {
 
     @ManyToOne(() => CategoryEntity, category => category.id)
     category: string;
+
+    @ManyToOne(() => BrandEntity, brand => brand.id)
+    brand: string;
 
     @Column({
         name: "expiredAt",

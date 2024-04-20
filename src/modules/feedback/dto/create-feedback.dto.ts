@@ -6,6 +6,10 @@ import { BaseDTO } from "src/common/base/dto.base";
 export class CreateFeedbackDto extends BaseDTO {
 
     @ApiProperty()
+    @IsNotEmpty()
+    orderItemId: string;
+
+    @ApiProperty()
     @IsString()
     name: string;
     
