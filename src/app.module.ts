@@ -28,7 +28,6 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
     AuthModule,
     MilkModule,
     OrderModule,
-    ShippingModule,
     FeedbackModule,
   ],
   providers: [

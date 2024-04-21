@@ -20,6 +20,19 @@ export class CreateVoucherDto {
     quantity: number;
 
     @ApiProperty()
+    @IsNotEmpty()
+    isPublic: boolean;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    isForGift: boolean;
+
+    @ApiProperty()
+    @IsNumber()
+    @IsNotEmpty()
+    score: number;
+
+    @ApiProperty()
     @IsDate()
     @Transform(({ value }) => new Date(value))
     @Type(() => Date)

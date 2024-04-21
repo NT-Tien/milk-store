@@ -29,5 +29,10 @@ export class OrderController {
         }
         return job;
     }
+
+    @Get()
+    async getOrders() {
+        return this.orderService.getOrders();
+    }
     
 }

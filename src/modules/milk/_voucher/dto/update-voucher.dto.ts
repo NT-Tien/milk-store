@@ -24,6 +24,18 @@ export class UpdateVoucherDto extends BaseDTO {
     quantity: number;
 
     @ApiProperty()
+    @IsBoolean()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    isForGift: boolean;
+
+    @ApiProperty()
+    @IsNumber()
+    @ValidateIf((object, value) => value !== undefined)
+    @Expose()
+    score: number;
+
+    @ApiProperty()
     @IsDate()
     @Transform(({ value }) => value ? new Date(value) : value)
     @Type(() => Date)

@@ -10,6 +10,7 @@ import { OrderProcessor } from "./order.process";
 import { BullModule } from "@nestjs/bull";
 import { OrderScheduleService } from "./order.schedule";
 import { VoucherEntity } from "src/entities/voucher.entity";
+import { AccountEntity } from "src/entities/account.entity";
 
 @Module({
     imports: [

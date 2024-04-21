@@ -37,6 +37,20 @@ export class VoucherEntity extends BaseEntity {
     isPublic: boolean;
 
     @Column({
+        name: "isForGift",
+        type: "boolean",
+        nullable: true,
+    })
+    isForGift: boolean;
+
+    @Column({
+        name: "score",
+        type: "int",
+        nullable: true,
+    })
+    score: number;
+
+    @Column({
         name: "startAt",
         type: "timestamp",
         nullable: false,

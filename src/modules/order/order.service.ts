@@ -9,6 +9,8 @@ import { ZaloPayService } from "./zalo-pay/zalo-pay.service";
 import { isUUID } from "class-validator";
 import { MilkEntity } from "src/entities/milk.entity";
 import { VoucherEntity } from "src/entities/voucher.entity";
+import { AccountEntity } from "src/entities/account.entity";
+import { GiftEntity } from "src/entities/gift.entity";
 
 @Injectable()
 export class OrderService implements OrderServiceInterface {
@@ -40,7 +42,23 @@ export class OrderService implements OrderServiceInterface {
                 var voucher = await queryRunner.manager.findOne(VoucherEntity, { where: { code: data.voucher } });
                 if (!voucher) throw new HttpException('Voucher not found', 404);
                 if (voucher.deletedAt) throw new HttpException('Voucher is deleted', 400);
-                if (voucher.expiredAt < new Date()) throw new HttpException('Voucher is expired', 400);
+                if (voucher.expiredAt < new Date()) throw new HttpException('GVoucher is expired', 400);
+                // check voucher is for gifti 
+                if (voucher.isForGift) {
+                    // user by phone
+                    if (!data.phone) throw new HttpException('Phone is required', 400);
+                    // check user has gift
+                    var user = await queryRunner.manager.findOne(AccountEntity, { where: { phone: data.phone } });
+                    if (!user) throw new HttpException('User not found', 404);
+                    var gift = await queryRunner.manager.findOne(GiftEntity, { where: { account: user.id, voucher: voucher.id } });
+                    if (!gift) throw new HttpException('Gift not found', 404);
+                    if (gift.quantity <= 0) throw new HttpException('Gift is empty', 400);
+                    gift.quantity -= 1;
+                    await queryRunner.manager.save(GiftEntity, gift);
+                } else {
+                    // check quantity of voucher
+                    if (voucher.quantity <= 0) throw new HttpException('Voucher is empty', 400);
+                }
                 // valid total after discount
                 if ((total - voucher.discount) < 0) {
                     total = 0;
@@ -49,7 +67,7 @@ export class OrderService implements OrderServiceInterface {
             } else if (total != data.total) throw new HttpException('Total price is not correct', 400);
             // create order add order items
             var result = await this.zaloPayService.createOrder(data.total);
-            if (result.payment.return_code != 1 ) throw new HttpException(result.payment.sub_return_message, 400);
+            if (result.payment.return_code != 1) throw new HttpException(result.payment.sub_return_message, 400);
             data.payment = result;
             var order = await queryRunner.manager.save(OrderEntity, data);
             for (const item of data.items) {
@@ -75,9 +93,8 @@ export class OrderService implements OrderServiceInterface {
     }
     async updateOrderStatusWithAppTransId(app_trans_id: string, status: OrderStatus): Promise<any> {
         console.log(app_trans_id);
-        
         var result = await this.orderRepository.createQueryBuilder()
-            .update(OrderEntity) 
+            .update(OrderEntity)
             .set({ status })
             .where("payment->'info'->>'app_trans_id' = :app_trans_id", { app_trans_id })
             .execute();
