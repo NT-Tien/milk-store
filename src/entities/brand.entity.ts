@@ -17,7 +17,7 @@ export class BrandEntity extends BaseEntity {
 
     @Column({
         type: 'varchar',
-        nullable: false,
+        nullable: true,
         name: 'images'
     })
     images: string;

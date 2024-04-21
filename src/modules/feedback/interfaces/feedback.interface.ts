@@ -9,9 +9,9 @@ export interface FeedbackServiceInterface {
     /** 
     * for only user have permission to create
     */
-    createFeedback(data: CreateFeedbackDto): Promise<any>;
-    updateFeedback(id: string, data: UpdateFeedbackDto): Promise<any>;
-    deleteFeedback(id: string): Promise<any>;
+    create(data: CreateFeedbackDto): Promise<any>;
+    update(id: string, data: UpdateFeedbackDto): Promise<any>;
+    delete(id: string): Promise<any>;
     /** 
      * for role admin and user have permission to read
      */
@@ -21,5 +21,5 @@ export interface FeedbackServiceInterface {
      */
     softDeleteFeedback(id: string): Promise<any>;
     unDeleteFeedback(id: string): Promise<any>;
-    getFeedbacks(): Promise<any>;
+    getAll(): Promise<any>;
 }

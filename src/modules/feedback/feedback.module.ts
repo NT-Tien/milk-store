@@ -6,6 +6,7 @@ import { FeedbackEntity } from "src/entities/feedback.entity";
 import { OrderItemEntity } from "src/entities/order-item.entity";
 import { AuthModule } from "../auth/auth.module";
 import { AccountEntity } from "src/entities/account.entity";
+import { BaseService } from "src/common/base/service.base";
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { AccountEntity } from "src/entities/account.entity";
     ],
     controllers: [FeedbackController],
     providers: [
+        BaseService,
         {
             provide: 'FEEDBACK_SERVICE_TIENNT',
             useClass: FeedbackService

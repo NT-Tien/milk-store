@@ -46,7 +46,8 @@ export class MilkService implements MilkServiceInterface {
         return this.milkRepository
             .createQueryBuilder("MILK")
             .leftJoinAndSelect("MILK.category", "CATEGORY")
-            .select(["MILK", "CATEGORY.id", "CATEGORY.name"])
+            .leftJoinAndSelect("MILK.brand", "BRAND")
+            .select(["MILK", "CATEGORY.id", "CATEGORY.name", "BRAND.id", "BRAND.name"])
             .getMany();
     }
 } 

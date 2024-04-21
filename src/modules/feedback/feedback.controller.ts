@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Inject, Param, Post, Put } from "@nestjs/common";
-import { FeedbackServiceInterface } from "./interfaces/category.interface";
 import { CreateFeedbackDto } from "./dto/create-feedback.dto";
 import { UpdateFeedbackDto } from "./dto/update-feedback.dto";
 import { ApiTags } from "@nestjs/swagger";
+import { FeedbackServiceInterface } from "./interfaces/feedback.interface";
 
 @ApiTags('feedback')
 @Controller('feedback')
@@ -13,7 +13,7 @@ export class FeedbackController {
 
     @Get()
     getFeedbacks() {
-        return this.feedbackService.getFeedbacks();
+        return this.feedbackService.getAll();
     }
 
     @Get('getFeedbacksByProductId/:id')
@@ -28,12 +28,12 @@ export class FeedbackController {
 
     @Post()
     createFeedback(@Body() data: CreateFeedbackDto) {
-        return this.feedbackService.createFeedback(data);
+        return this.feedbackService.create(data);
     }
 
     @Put(':id')
     updateFeedback(@Param('id') id: string, @Body() data: UpdateFeedbackDto) {
-        return this.feedbackService.updateFeedback(id, data);
+        return this.feedbackService.update(id, data);
     }
 
 
