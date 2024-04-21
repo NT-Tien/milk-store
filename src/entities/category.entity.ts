@@ -15,4 +15,11 @@ export class CategoryEntity extends BaseEntity {
     })
     name: string;
 
+    @Column({
+        type: 'varchar',
+        nullable: false,
+        name: 'images'
+    })
+    images: string;
+    
 }

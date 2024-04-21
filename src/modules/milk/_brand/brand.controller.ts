@@ -2,6 +2,8 @@ import { Body, Controller, Delete, Get, HttpException, Inject, Param, Patch, Pos
 import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from "@nestjs/swagger";
 import { BrandServiceInterface } from "./interfaces/brand.interface";
 import { AdminGuard } from "src/modules/auth/guards/admin.guard";
+import { UpdateBrandDto } from "./dto/update-brand.dto";
+import { CreateBrandDto } from "./dto/create-brand.dto";
 
 @ApiTags("brand")
 @UseGuards(AdminGuard)
@@ -23,39 +25,15 @@ export class BrandController {
         return this.BrandService.getBrandById(id);
     }
 
-    @ApiBody({
-        schema: {
-            type: 'object',
-            properties: {
-                name: {
-                    type: 'string',
-                    example: 'Brand name'
-                }
-            }
-        }
-    
-    })
     @Post()
     @ApiBearerAuth()
-    create(@Body() data: { name: string}) {
+    create(@Body() data: CreateBrandDto) {
         return this.BrandService.createBrand(data);
     }
 
-    @ApiBody({
-        schema: {
-            type: 'object',
-            properties: {
-                name: {
-                    type: 'string',
-                    example: 'Brand name'
-                }
-            }
-        }
-    
-    })
     @Put('/:id')
     @ApiBearerAuth()
-    update(@Param('id') id: string, @Body() data: { name: string}) {
+    update(@Param('id') id: string, @Body() data: UpdateBrandDto) {
         return this.BrandService.updateBrand(id, data);
     }
 

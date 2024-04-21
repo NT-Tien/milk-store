@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, HttpException, Inject, Param, Patch, Post, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiBody, ApiProperty, ApiTags } from "@nestjs/swagger";
 import { CategoryServiceInterface } from "./interfaces/category.interface";
+import { CreateCategoryDto } from "./dto/create-category.dto";
+import { UpdateCategoryDto } from "./dto/update-category.dto";
 
 @ApiTags("category")
 @Controller("category")
@@ -21,39 +23,15 @@ export class CategoryController {
         return this.CategoryService.getCategoryById(id);
     }
 
-    @ApiBody({
-        schema: {
-            type: 'object',
-            properties: {
-                name: {
-                    type: 'string',
-                    example: 'Category name'
-                }
-            }
-        }
-    
-    })
     @Post()
     @ApiBearerAuth()
-    create(@Body() data: { name: string}) {
+    create(@Body() data: CreateCategoryDto) {
         return this.CategoryService.createCategory(data);
     }
 
-    @ApiBody({
-        schema: {
-            type: 'object',
-            properties: {
-                name: {
-                    type: 'string',
-                    example: 'Category name'
-                }
-            }
-        }
-    
-    })
     @Put('/:id')
     @ApiBearerAuth()
-    update(@Param('id') id: string, @Body() data: { name: string}) {
+    update(@Param('id') id: string, @Body() data: UpdateCategoryDto) {
         return this.CategoryService.updateCategory(id, data);
     }
 

@@ -3,6 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CategoryEntity } from "../../../entities/category.entity";
 import { CategoryServiceInterface } from "./interfaces/category.interface";
+import { CreateCategoryDto } from "./dto/create-category.dto";
+import { UpdateCategoryDto } from "./dto/update-category.dto";
 
 @Injectable()
 export class CategoryService implements CategoryServiceInterface {
@@ -11,10 +13,10 @@ export class CategoryService implements CategoryServiceInterface {
         @InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>,
     ) { }
 
-    createCategory(data: any): Promise<any> {
+    createCategory(data: CreateCategoryDto): Promise<any> {
         return this.categoryRepository.save(data);
     }
-    updateCategory(id: string, data: any): Promise<any> {
+    updateCategory(id: string, data: UpdateCategoryDto): Promise<any> {
         return this.categoryRepository.update(id, data);
     }
     deleteCategory(id: string): Promise<any> {

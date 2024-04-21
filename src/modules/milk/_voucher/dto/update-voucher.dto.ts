@@ -1,8 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsDate, IsNumber, IsString, ValidateIf } from "class-validator";
 import { Expose, Transform, Type } from "class-transformer";
+import { BaseDTO } from "src/common/base/dto.base";
 
-export class UpdateVoucherDto {
+export class UpdateVoucherDto extends BaseDTO {
 
     @ApiProperty()
     @IsString()

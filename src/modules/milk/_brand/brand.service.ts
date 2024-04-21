@@ -3,6 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { BrandEntity } from "../../../entities/brand.entity";
 import { BrandServiceInterface } from "./interfaces/brand.interface";
+import { UpdateBrandDto } from "./dto/update-brand.dto";
+import { CreateBrandDto } from "./dto/create-brand.dto";
 
 @Injectable()
 export class BrandService implements BrandServiceInterface {
@@ -11,10 +13,10 @@ export class BrandService implements BrandServiceInterface {
         @InjectRepository(BrandEntity) private readonly BrandRepository: Repository<BrandEntity>,
     ) { }
 
-    createBrand(data: any): Promise<any> {
+    createBrand(data: CreateBrandDto): Promise<any> {
         return this.BrandRepository.save(data);
     }
-    updateBrand(id: string, data: any): Promise<any> {
+    updateBrand(id: string, data: UpdateBrandDto): Promise<any> {
         return this.BrandRepository.update(id, data);
     }
     deleteBrand(id: string): Promise<any> {
