@@ -58,6 +58,9 @@ export class OrderService implements OrderServiceInterface {
                 } else {
                     // check quantity of voucher
                     if (voucher.quantity <= 0) throw new HttpException('Voucher is empty', 400);
+                    // reduce quantity of voucher
+                    voucher.quantity -= 1;
+                    await queryRunner.manager.save(VoucherEntity, voucher);
                 }
                 // valid total after discount
                 if ((total - voucher.discount) < 0) {

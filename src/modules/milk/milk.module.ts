@@ -17,6 +17,7 @@ import { VoucherUserController } from "./_voucher/voucher-user.controller";
 import { BrandService } from "./_brand/brand.service";
 import { BrandController } from "./_brand/brand.controller";
 import { BrandEntity } from "src/entities/brand.entity";
+import { BrandUserController } from "./_brand/brand-user.controller";
 
 @Module({
     imports: [
@@ -37,6 +38,7 @@ import { BrandEntity } from "src/entities/brand.entity";
         CategoryController,
         CategoryUserController,
         BrandController,
+        BrandUserController,
     ],
     providers: [
         {
