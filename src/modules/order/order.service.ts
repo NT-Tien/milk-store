@@ -107,6 +107,9 @@ export class OrderService implements OrderServiceInterface {
     getOrders(): Promise<any> {
         return this.orderRepository.find();
     }
+    getItemsByOrderId(orderId: string): Promise<any> {
+        return this.orderItemRepository.find({ where: { orderId } });
+    }
     getOrdersByStatus(status: OrderStatus): Promise<any> {
         return this.orderRepository.find({ where: { status } });
     }

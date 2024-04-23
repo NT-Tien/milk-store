@@ -6,6 +6,7 @@ export interface OrderServiceInterface {
     updateOrderStatus(id: string, status: OrderStatus): Promise<any>;
     updateOrderStatusWithAppTransId(app_trans_id: string, status: OrderStatus): Promise<any>;
     getOrders(): Promise<any>;
+    getItemsByOrderId(orderId: string): Promise<any>;
     getOrdersByStatus(status: OrderStatus): Promise<any>;
     getOrderById(id: string): Promise<any>;
     getOrdersByUserPhone(phone: string): Promise<any>;
