@@ -9,6 +9,8 @@ export class PayloadTokenDto {
     @IsNotEmpty()
     email: string;
     @IsNotEmpty()
+    phone: string;
+    @IsNotEmpty()
     role: string;
     exp?: any
 }
