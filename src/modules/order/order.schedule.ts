@@ -14,9 +14,14 @@ export class OrderScheduleService {
         var list_pending = await this.orderService.getOrdersByStatus(OrderStatus.PENDING);
         console.log(list_pending);
         for (let i = 0; i < list_pending.length; i++) {
-            console.log(new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000));
-            
-            if (new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000) > 15 * 60 * 1000) {
+            // for dev local
+            // console.log(new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000));
+            // if (new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000) > 15 * 60 * 1000) {
+            //     await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
+            // }
+            // for production
+            console.log(new Date().getTime() - list_pending[i].createdAt.getTime());
+            if (new Date().getTime() - list_pending[i].createdAt.getTime()  > 15 * 60 * 1000) {
                 await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
             }
         }
