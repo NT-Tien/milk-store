@@ -1,11 +1,12 @@
-import { Body, Controller, Get, HttpException, Inject, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpException, Inject, Param, Post, UseGuards } from "@nestjs/common";
 import { OrderServiceInterface } from "./interfaces/order-service.interface";
-import { ApiBody, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiBody, ApiTags } from "@nestjs/swagger";
 import { ZaloPayService } from "./zalo-pay/zalo-pay.service";
 import { InjectQueue } from "@nestjs/bull";
 import { Job, Queue } from "bull";
 import { CreateOrderDto } from "./dto/create-order.dto";
 import { OrderStatus } from "src/entities/order.entity";
+import { AdminGuard } from "../auth/guards/admin.guard";
 
 @ApiTags("order")
 @Controller("order")
@@ -41,11 +42,8 @@ export class OrderController {
         return this.orderService.getOrderById(orderId);
     }
 
-    @Get('item-order/:orderId')
-    async getItemOrder(@Param('orderId') orderId: string) {
-        return this.orderService.getItemsByOrderId(orderId);
-    }
-
+    @ApiBearerAuth()
+    @UseGuards(AdminGuard)
     @ApiBody({
         schema: {
             type: 'object',

@@ -38,7 +38,7 @@ export class AuthService implements AuthServiceInterface {
         var account = await this.repositoryAccount.findOne({ where: { email: email } });
         if (!account) throw new HttpException('Account not found', HttpStatus.NOT_FOUND);
         if (!bcrypt.compareSync(password, account.password) || account.deletedAt != null) throw new HttpException('Account info is not valid', HttpStatus.BAD_REQUEST);
-        return this.generateToken({ id: account.id, username: account.username, email: account.email, phone: account.phone, role: account.role });
+        return this.generateToken({ id: account.id, username: account.username, email: account.email, phone: account.phone, score: account.score, role: account.role });
     }
     async loginWithFirebaseToken(token: string): Promise<any> {
         try {
@@ -54,10 +54,10 @@ export class AuthService implements AuthServiceInterface {
                     }
                     await this.repositoryAccount.save(data);
                     var newAccount = await this.repositoryAccount.findOne({ where: { email: decodedToken.email } });
-                    return this.generateToken({ id: newAccount.id, username: newAccount.username, email: newAccount.email, phone: account.phone, role: newAccount.role });
+                    return this.generateToken({ id: newAccount.id, username: newAccount.username, email: newAccount.email, phone: account.phone, score: account.score, role: newAccount.role });
                 }
                 else if (account.deletedAt != null) throw new HttpException("Account info is not valid", HttpStatus.BAD_REQUEST);
-                return this.generateToken({ id: account.id, username: account.username, email: account.email, phone: account.phone, role: account.role });
+                return this.generateToken({ id: account.id, username: account.username, email: account.email, phone: account.phone, score: account.score, role: account.role });
             }
         } catch (error) {
             throw new HttpException(error, HttpStatus.BAD_REQUEST);

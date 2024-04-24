@@ -14,6 +14,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ShippingModule } from './modules/shipping/shipping.module';
 import { FeedbackModule } from './modules/feedback/feedback.module';
+import { GiftModule } from './modules/gift/gift.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
     OrderModule,
     FeedbackModule,
     ShippingModule,
+    GiftModule,
   ],
   providers: [
     {

@@ -11,6 +11,7 @@ import { BullModule } from "@nestjs/bull";
 import { OrderScheduleService } from "./order.schedule";
 import { VoucherEntity } from "src/entities/voucher.entity";
 import { AccountEntity } from "src/entities/account.entity";
+import { AuthModule } from "../auth/auth.module";
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { AccountEntity } from "src/entities/account.entity";
             OrderItemEntity,
         ]),
         BullModule.registerQueue({name: 'order-queue'}),
+        AuthModule,
     ],
     controllers: [
         OrderController,

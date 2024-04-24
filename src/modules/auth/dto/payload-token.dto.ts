@@ -11,6 +11,8 @@ export class PayloadTokenDto {
     @IsNotEmpty()
     phone: string;
     @IsNotEmpty()
+    score: number;
+    @IsNotEmpty()
     role: string;
     exp?: any
 }

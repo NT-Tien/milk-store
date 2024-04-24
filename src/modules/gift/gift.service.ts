@@ -5,9 +5,10 @@ import { AccountEntity } from "src/entities/account.entity";
 import { GiftEntity } from "src/entities/gift.entity";
 import { VoucherEntity } from "src/entities/voucher.entity";
 import { Repository } from "typeorm";
+import { GiftServiceInterface } from "./interfaces/gift-service.inteface";
 
 @Injectable()
-export class GiftService extends BaseService<GiftEntity> {
+export class GiftService extends BaseService<GiftEntity> implements GiftServiceInterface {
 
     constructor(
         @InjectRepository(GiftEntity) private readonly giftRepository: Repository<GiftEntity>,

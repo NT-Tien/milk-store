@@ -107,19 +107,22 @@ export class OrderService implements OrderServiceInterface {
     getOrders(): Promise<any> {
         return this.orderRepository.find();
     }
-    getItemsByOrderId(orderId: string): Promise<any> {
-        return this.orderItemRepository.find({ where: { orderId } });
-    }
     getOrdersByStatus(status: OrderStatus): Promise<any> {
         return this.orderRepository.find({ where: { status } });
     }
     async getOrderById(id: string): Promise<any> {
         if (!isUUID(id as any)) throw new HttpException("Id is not valid", 400);
-        var list_item = await this.orderItemRepository.find({ where: { orderId: id } });
+        var list_item = await this.orderItemRepository.find({ where: { orderId: id } }) as any;
+        // get milk info for each item
+        for (let item of list_item) {
+            item.milk = await this.dataSource.getRepository(MilkEntity).findOne({ where: { id: item.milkId } });
+            console.log(item.milk);
+            
+        }
         var result = await this.orderRepository.findOne({ where: { id } });
         result.items = list_item;
         return result;
-}
+    }
     getOrdersByUserPhone(phone: string): Promise<any> {
         return this.orderRepository.find({ where: { phone } });
     }
