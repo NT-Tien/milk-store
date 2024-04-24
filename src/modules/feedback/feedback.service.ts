@@ -21,10 +21,10 @@ export class FeedbackService extends BaseService<FeedbackEntity> implements Feed
     }
 
     async getFeedbacksByProductId(id: string): Promise<any> {
-        var list_order_items = await this.orderItemRepository.find({ where: { id: id } });
+        var list_order_items = await this.orderItemRepository.find({ where: { milkId: id } });
         var list_feedback = [];
         for (let order_item of list_order_items) {
-            var feedback = await this.feedbackRepository.findOne({ where: { orderItem: order_item } });
+            var feedback = await this.feedbackRepository.findOne({ where: { orderItem: order_item.id } });
             list_feedback.push(feedback);
         }
         return list_feedback;

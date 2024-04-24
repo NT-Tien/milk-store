@@ -10,18 +10,6 @@ export class UpdateFeedbackDto extends BaseDTO {
     @IsString()
     @ValidateIf((object, value) => value !== undefined)
     @Expose()
-    name: string;
-    
-    @ApiProperty()
-    @IsPhoneNumber()
-    @ValidateIf((object, value) => value !== undefined)
-    @Expose()
-    phone: string;
-
-    @ApiProperty()
-    @IsString()
-    @ValidateIf((object, value) => value !== undefined)
-    @Expose()
     content: string;
 
     @ApiProperty()

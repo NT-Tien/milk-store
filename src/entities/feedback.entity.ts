@@ -8,7 +8,7 @@ import { OrderItemEntity } from "./order-item.entity";
 export class FeedbackEntity extends BaseEntity {
 
     @ManyToOne(() => OrderItemEntity, orderItem => orderItem.id)
-    orderItem: OrderItemEntity;
+    orderItem: string;
 
     @Column({
         name: "name",
