@@ -1,9 +1,10 @@
 import { HttpException, Injectable } from "@nestjs/common";
-import { ShippingOrderDto } from "./dto/data-order.dto";
-import axios from 'axios';
 import { ShippingServiceInterface } from "./interfaces/shipping-service.interface";
 import * as dotenv from 'dotenv';
-import { UpdateShippingOrderDto } from "./dto/update-order.dto";
+import { AddShippingOrderDto } from "./dto/add-shipping.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ShippingEntity } from "src/entities/shipping.entity";
+import { Repository } from "typeorm";
 dotenv.config();
 
 const data = {
@@ -67,98 +68,16 @@ const headers = {
 
 @Injectable()
 export class ShippingService implements ShippingServiceInterface {
-    constructor() { }
-
-    getAllOrderShipping(): any {
-        return axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/search',
-            {
-                "shop_id": 191758,
-                "status": [
-                    "ready_to_pick",
-                    "picking",
-                    "money_collect_picking"
-                ],
-                "payment_type_id": [
-                    1,
-                    2,
-                    4,
-                    5
-                ],
-                "from_time": 1710694800,
-                "to_time": 1713373200,
-                "offset": 0,
-                "limit": 100,
-                "from_cod_amount": 0,
-                "to_cod_amount": 0,
-                "ignore_shop_id": false,
-                "shop_ids": null,
-                "is_search_exactly": false,
-                "is_print": null,
-                "is_cod_failed_collected": null,
-                "is_document_pod": null,
-                "source": "5sao"
-            }, { headers })
-            .then(response => {
-                console.log('Response:', response.data);
-                return response.data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                throw new HttpException(error.response.data, error.response.status);
-            });
+    constructor(
+        @InjectRepository(ShippingEntity) private readonly shippingRepository: Repository<ShippingEntity>
+    ) { }
+    addShippingOrder(data: AddShippingOrderDto): Promise<any> {
+        return this.shippingRepository.save(data);
     }
-
-    getOrderDetail(order_code: string): any {
-        return axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/detail', {
-            "order_code": order_code
-        }, { headers })
-            .then(response => {
-                console.log('Response:', response.data);
-                return response.data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    getAllShippingOrderList(): Promise<any> {
+        return this.shippingRepository.find();
     }
-
-    createOrderShipping(data: ShippingOrderDto): any {
-        return axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create', data, { headers })
-            .then(response => {
-                console.log('Response:', response.data);
-                return response.data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    getShippingOrderListByUserId(userId: string): Promise<any> {
+        return this.shippingRepository.find({where: {account: userId}});
     }
-
-    updateOrderShipping(order_code: string, data: UpdateShippingOrderDto): any {
-        return axios.post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/update', data, { headers })
-            .then(response => {
-                console.log('Response:', response.data);
-                return response.data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-    returnOrderShipping(id: string): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    cancelOrderShipping(id: string): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    calculateOrderShippingFee(data: ShippingOrderDto): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    getDistricts(): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    getWards(district_id: number): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-    getPronvinces(): Promise<any> {
-        throw new Error("Method not implemented.");
-    }
-
 }
