@@ -5,6 +5,7 @@ import { ZaloPayService } from "./zalo-pay/zalo-pay.service";
 import { InjectQueue } from "@nestjs/bull";
 import { Job, Queue } from "bull";
 import { CreateOrderDto } from "./dto/create-order.dto";
+import { OrderStatus } from "src/entities/order.entity";
 
 @ApiTags("order")
 @Controller("order")
@@ -35,9 +36,30 @@ export class OrderController {
         return this.orderService.getOrders();
     }
 
+    @Get(':orderId')
+    async getOrder(@Param('orderId') orderId: string) {
+        return this.orderService.getOrderById(orderId);
+    }
+
     @Get('item-order/:orderId')
     async getItemOrder(@Param('orderId') orderId: string) {
         return this.orderService.getItemsByOrderId(orderId);
+    }
+
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                status: {
+                    type: 'string',
+                    enum: Object.values(OrderStatus),
+                },
+            },
+        },
+    })
+    @Post('update-status/:orderId')
+    async updateStatus(@Param('orderId') orderId: string, @Body('status') status: OrderStatus){
+        return this.orderService.updateOrderStatus(orderId, status);
     }
     
 }
