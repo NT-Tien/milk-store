@@ -131,7 +131,7 @@ export class AuthService implements AuthServiceInterface {
         }
         var dataUpdate = {
             ...data,
-            password: data.password ? await this.hashPassword(data.password) : null
+            password: data.password ? await this.hashPassword(data.password) : undefined
         }
         return this.repositoryAccount.update(id, dataUpdate);
     }
