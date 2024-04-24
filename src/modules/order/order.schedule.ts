@@ -9,7 +9,7 @@ export class OrderScheduleService {
         @Inject('ORDER_SERVICE_TIENNT') private readonly orderService: OrderServiceInterface,
     ) { }
 
-    @Interval(5 * 60 * 1000) // Every 5 * 60 seconds
+    @Interval(3 * 60 * 1000) // Every 3 * 60 seconds
     async checkPayment() {
         var list_pending = await this.orderService.getOrdersByStatus(OrderStatus.PENDING);
         console.log(list_pending);
