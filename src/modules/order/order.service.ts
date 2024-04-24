@@ -115,7 +115,7 @@ export class OrderService implements OrderServiceInterface {
     }
     async getOrderById(id: string): Promise<any> {
         if (!isUUID(id as any)) throw new HttpException("Id is not valid", 400);
-        var list_item = await this.orderItemRepository.find({ where: { id } });
+        var list_item = await this.orderItemRepository.find({ where: { orderId: id } });
         var result = await this.orderRepository.findOne(id as any);
         result.items = list_item;
         return result;
