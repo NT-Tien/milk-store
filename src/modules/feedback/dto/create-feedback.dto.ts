@@ -7,7 +7,7 @@ export class CreateFeedbackDto extends BaseDTO {
 
     @ApiProperty()
     @IsNotEmpty()
-    orderItemId: string;
+    orderItem: string;
 
     @ApiProperty()
     @IsString()
