@@ -11,7 +11,11 @@ export class ShippingEntity extends BaseEntity {
     @ManyToOne(() => AccountEntity, account => account.id)
     account: string;
 
-    @ManyToOne(() => OrderEntity, order => order.id)
-    order: string;
+    @Column({
+        name: "shipping_code",
+        type: "varchar",
+        nullable: false,
+    })
+    shipping_code: string;
     
 }

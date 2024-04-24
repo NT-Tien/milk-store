@@ -11,6 +11,6 @@ export class AddShippingOrderDto {
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
-    order: string;
+    shipping_code: string;
 
 }
