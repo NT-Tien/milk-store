@@ -96,16 +96,20 @@ export class OrderService implements OrderServiceInterface {
     }
     async updateOrderStatus(id: string, status: OrderStatus): Promise<any> {
         // get order by id  
-        var order = await this.orderRepository.findOne({where: {id}});
+        var order = await this.orderRepository.findOne({ where: { id } });
         if (!order) throw new HttpException('Order not found', 404);
         // for each 10000 VND, user will get 1 point
         var point = (order.total / 10000).toFixed(0);
         // update score for user
-        var user = await this.dataSource.getRepository(AccountEntity).findOne({where: {phone: order.phone}});
-        user.score += parseInt(point);
-        await this.dataSource.getRepository(AccountEntity).save(user);
+        var user = await this.dataSource.getRepository(AccountEntity).findOne({ where: { phone: order.phone } });
+        // createdAt =  updatedAt
+        if (order.createdAt == order.updatedAt) {
+            user.score += parseInt(point);
+            user.updatedAt = new Date();
+            await this.dataSource.getRepository(AccountEntity).save(user);
+        }
         // update status
-        return this.orderRepository.update(id, { status });
+        return this.orderRepository.update(id, { status: status, updatedAt: new Date()});
     }
     async updateOrderStatusWithAppTransId(app_trans_id: string, status: OrderStatus): Promise<any> {
         console.log(app_trans_id);
@@ -130,7 +134,7 @@ export class OrderService implements OrderServiceInterface {
         for (let item of list_item) {
             item.milk = await this.dataSource.getRepository(MilkEntity).findOne({ where: { id: item.milkId } });
             console.log(item.milk);
-            
+
         }
         var result = await this.orderRepository.findOne({ where: { id } });
         result.items = list_item;
