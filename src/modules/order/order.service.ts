@@ -113,14 +113,13 @@ export class OrderService implements OrderServiceInterface {
     getOrdersByStatus(status: OrderStatus): Promise<any> {
         return this.orderRepository.find({ where: { status } });
     }
-    getOrderById(id: string): Promise<any> {
+    async getOrderById(id: string): Promise<any> {
         if (!isUUID(id as any)) throw new HttpException("Id is not valid", 400);
-        // get order with order items by id
-        return this.orderRepository.createQueryBuilder("order")
-            .leftJoinAndSelect("order.items", "orderItem")
-            .where("order.id = :id", { id })
-            .getOne();
-    }
+        var list_item = await this.orderItemRepository.find({ where: { id } });
+        var result = await this.orderRepository.findOne(id as any);
+        result.items = list_item;
+        return result;
+}
     getOrdersByUserPhone(phone: string): Promise<any> {
         return this.orderRepository.find({ where: { phone } });
     }
