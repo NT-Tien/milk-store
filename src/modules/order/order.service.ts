@@ -91,7 +91,17 @@ export class OrderService implements OrderServiceInterface {
             await queryRunner.release();
         }
     }
-    updateOrderStatus(id: string, status: OrderStatus): Promise<any> {
+    async updateOrderStatus(id: string, status: OrderStatus): Promise<any> {
+        // get order by id  
+        var order = await this.orderRepository.findOne({where: {id}});
+        if (!order) throw new HttpException('Order not found', 404);
+        // for each 10000 VND, user will get 1 point
+        var point = order.total / 10000;
+        // update score for user
+        var user = await this.dataSource.getRepository(AccountEntity).findOne({where: {phone: order.phone}});
+        user.score += point;
+        await this.dataSource.getRepository(AccountEntity).save(user);
+        // update status
         return this.orderRepository.update(id, { status });
     }
     async updateOrderStatusWithAppTransId(app_trans_id: string, status: OrderStatus): Promise<any> {
