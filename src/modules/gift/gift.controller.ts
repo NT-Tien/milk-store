@@ -28,6 +28,11 @@ export class GiftController {
       );
    }
 
+   @Get('newest-score/userId')
+   async getNewestScore(@Param('id') id: string){
+      return await this.giftService.getNewestScore(id);
+   }
+
    @Get('get-by-user-id/:id')
    async getGiftByUserId(@Param('id') id: string) {
       return await this.giftService.getGiftsByAccount(id);

@@ -47,4 +47,9 @@ export class GiftService extends BaseService<GiftEntity> implements GiftServiceI
     async getGiftsByAccount(accountId: string) {
         return await this.giftRepository.find({where: {account: accountId}});
     }
+
+    async getNewestScore(id: string) {
+        const account = await this.accountRepository.findOne({where: {id}});
+        return account.score;
+    }
 }
