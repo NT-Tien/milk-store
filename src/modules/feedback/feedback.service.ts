@@ -21,10 +21,25 @@ export class FeedbackService extends BaseService<FeedbackEntity> implements Feed
     }
 
     async getFeedbacksByProductId(id: string): Promise<any> {
+
+        // return this.milkRepository
+        //     .createQueryBuilder("MILK")
+        //     .leftJoinAndSelect("MILK.category", "CATEGORY")
+        //     .leftJoinAndSelect("MILK.brand", "BRAND")
+        //     .select(["MILK", "CATEGORY.id", "CATEGORY.name", "BRAND.id", "BRAND.name"])
+        //     .where("MILK.id = :id", { id })
+        //     .getOne();
+
+
         var list_order_items = await this.orderItemRepository.find({ where: { milkId: id } });
+        console.log(list_order_items);
         var list_feedback = [];
         for (let order_item of list_order_items) {
-            var feedback = await this.feedbackRepository.findOne({ where: { orderItem: order_item.id } });
+            var feedback = await this.feedbackRepository.createQueryBuilder("FEEDBACK")
+                .leftJoinAndSelect("FEEDBACK.orderItem", "ORDER_ITEM")
+                .select(["FEEDBACK", "ORDER_ITEM"])
+                .where("FEEDBACK.orderItem = :id", { id: order_item.id })
+                .getOne();
             list_feedback.push(feedback);
         }
         return list_feedback;
