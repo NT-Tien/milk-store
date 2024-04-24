@@ -91,6 +91,9 @@ export class OrderService implements OrderServiceInterface {
             await queryRunner.release();
         }
     }
+    async updateOrderStatusForSchedule(id: string, status: OrderStatus): Promise<any> {
+        return this.orderRepository.update(id, { status });
+    }
     async updateOrderStatus(id: string, status: OrderStatus): Promise<any> {
         // get order by id  
         var order = await this.orderRepository.findOne({where: {id}});

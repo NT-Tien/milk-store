@@ -17,12 +17,12 @@ export class OrderScheduleService {
             // for dev local
             // console.log(new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000));
             // if (new Date().getTime() - (list_pending[i].createdAt.getTime() + 7 * 60 * 60 * 1000) > 15 * 60 * 1000) {
-            //     await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
+            //     await this.orderService.updateOrderStatusForSchedule(list_pending[i].id, OrderStatus.EXPIRED);
             // }
             // for production
             console.log('check pedding', new Date().getTime() - list_pending[i].createdAt.getTime());
             if (new Date().getTime() - list_pending[i].createdAt.getTime()  > 15 * 60 * 1000) {
-                await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
+                await this.orderService.updateOrderStatusForSchedule(list_pending[i].id, OrderStatus.EXPIRED);
             }
         }
     }
