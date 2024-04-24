@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Inject, Param, Post, Put } from "@nestjs/common";
 import { ShippingServiceInterface } from "./interfaces/shipping-service.interface";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { AddShippingOrderDto } from "./dto/add-shipping.dto";
 
 @ApiTags("shipping")
 @Controller('shipping')
@@ -11,7 +12,7 @@ export class ShippingController {
 
     @Post()
     @ApiBearerAuth()
-    async addShippingOrder(@Body() data: any) {
+    async addShippingOrder(@Body() data: AddShippingOrderDto) {
         return this.shippingService.addShippingOrder(data);
     }
 
