@@ -20,7 +20,7 @@ export class OrderScheduleService {
             //     await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
             // }
             // for production
-            console.log(new Date().getTime() - list_pending[i].createdAt.getTime());
+            console.log('check pedding', new Date().getTime() - list_pending[i].createdAt.getTime());
             if (new Date().getTime() - list_pending[i].createdAt.getTime()  > 15 * 60 * 1000) {
                 await this.orderService.updateOrderStatus(list_pending[i].id, OrderStatus.EXPIRED);
             }
